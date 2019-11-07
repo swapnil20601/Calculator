@@ -1,28 +1,26 @@
 const screen = document.getElementById("screen");
 
-let firstOperand = document.querySelector("button[data-number = '1']");
+let firstOperand = null;
 
-let secondOperand = document.querySelector("button[data-number = '2']");
+let numberButtonElements = document.querySelectorAll("button[data-number]");
 
-const result = document.querySelector("button[data-operator = '=']");
+numberButtonElements.forEach(element =>
+  element.addEventListener("click", function(e) {
+      const btn = e.target.textContent;
+      if (screen.value === "0") {
+        screen.value = "";
+        firstOperand = screen.value + btn;
+        screen.value = firstOperand;
+        console.log(firstOperand)
+      } else if (screen.value.length < 10) {
+        firstOperand = screen.value + btn;
+        screen.value = firstOperand;
+        console.log(firstOperand)
+      } else {
+        alert("Only 10 digits are allowed!");
+      }
+       
+  })
+);
 
-//returns value of first operand
-firstOperand.addEventListener("click", function(e) {
-  screen.value = e.target.textContent;
-  return e.target.textContent;
-});
-
-//returns value of second operand
-secondOperand.addEventListener("click", function(e) {
-  screen.value = e.target.textContent;
-  return e.target.textContent;
-});
-
-//calculates sum  of firstOperand & secondOperand and returns it's result
-result.addEventListener("click", function(e) {
-  sum =
-    parseFloat(firstOperand.textContent) +
-    parseFloat(secondOperand.textContent);
-  screen.value = sum;
-  return sum;
-});
+console.log(firstOperand)
