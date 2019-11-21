@@ -6,13 +6,23 @@ let secondOperand = "";
 
 let operator = "";
 
-//let lengthOfOperand = 10;
-
 const numberButtonElements = document.querySelectorAll("button[data-number]");
 
 const operatorButtons = document.querySelectorAll("button[data-operator]");
 
-const result = document.querySelector("button[data-operator = '=']");
+const result = document.querySelectorAll("button[data-operator]");
+
+result.forEach(y =>
+  y.addEventListener("click", function() {
+    if (firstOperand !== "" && firstOperand !== ".") {
+      console.log("inside firstoper lengh");
+      compute(firstOperand, operator, secondOperand);
+    } else {
+      alert("Please enter numeric value first");
+      document.location.reload();
+    }
+  })
+);
 
 /* reset display to 0 when CE button is pressed */
 document.getElementById("clear").addEventListener("click", function() {
@@ -23,7 +33,7 @@ document.getElementById("clear").addEventListener("click", function() {
 /* stores operator in 'operator' variable when any the operator button is clicked */
 operatorButtons.forEach(op =>
   op.addEventListener("click", function(e) {
-    if (e.target.textContent !== "=") {
+    if (firstOperand !== "") {
       operator = e.target.textContent;
       if (operator === "√") {
         display(Math.sqrt(firstOperand));
@@ -37,34 +47,24 @@ operatorButtons.forEach(op =>
 numberButtonElements.forEach(element =>
   element.addEventListener("click", function(e) {
     const btn = e.target.textContent;
-    // if (btn === ".") {
-    //   lengthOfOperand = 11;
-    // }
 
     /*if operator is not empty, then clear screen and display secondOperand, ELSE, display firstOperand on screen */
     if (operator !== "") {
-      //console.log("length of operand for 2nd op is "+lengthOfOperand)
-      
-     
-     if (screen.value.length < 10) {
-        console.log("inside if clobk "+lengthOfOperand)
+      if (screen.value.length < 10) {
         secondOperand = secondOperand + btn;
         screen.value = secondOperand;
-      } 
-      else {
+      } else {
         alert("Only 10 digits are allowed!");
         window.location.reload();
       }
-    } 
+    } else {
     /* 
       display firstOperand on screen
     */
-    else {
       if (screen.value === "0") {
         firstOperand = firstOperand + btn;
         screen.value = firstOperand;
       } else if (screen.value.length < 10) {
-        //console.log("1st op is "+lengthOfOperand)
         firstOperand = firstOperand + btn;
         screen.value = firstOperand;
       } else {
@@ -75,7 +75,18 @@ numberButtonElements.forEach(element =>
   })
 );
 
-result.addEventListener("click", function() {
+/* displays at the most 10 digits on the screen if the length of result is more than 10 */
+function display(answer) {
+  if (`${answer}`.length > 10) {
+    screen.value = `${answer}`.substr(0, 10);
+  } else {
+    screen.value = answer;
+  }
+  firstOperand = answer;
+  secondOperand = "";
+}
+
+function compute(firstOperand, operator, secondOperand) {
   switch (operator) {
     case "+":
       display(parseFloat(firstOperand) + parseFloat(secondOperand));
@@ -97,17 +108,4 @@ result.addEventListener("click", function() {
       display(parseFloat(firstOperand) % parseFloat(secondOperand));
       break;
   }
-});
-
-/* displays at the most 10 digits on the screen if the length of result is more than 10 */
-function display(answer) {
-  if (`${answer}`.length > 10) {
-    screen.value = `${answer}`.substr(0, 10);
-  } else {
-    screen.value = answer;
-  }
 }
-
-document.getElementById("x").addEventListener("click", function(e) {
-  console.log('"&divide;"');
-});
