@@ -12,10 +12,9 @@ const operatorButtons = document.querySelectorAll("button[data-operator]");
 
 const result = document.querySelectorAll("button[data-operator]");
 
-result.forEach(y =>
-  y.addEventListener("click", function() {
+result.forEach(res =>
+  res.addEventListener("click", function() {
     if (firstOperand !== "" && firstOperand !== ".") {
-      console.log("inside firstoper lengh");
       compute(firstOperand, operator, secondOperand);
     } else {
       alert("Please enter numeric value first");
@@ -47,10 +46,9 @@ operatorButtons.forEach(op =>
 numberButtonElements.forEach(element =>
   element.addEventListener("click", function(e) {
     const btn = e.target.textContent;
-
     /*if operator is not empty, then clear screen and display secondOperand, ELSE, display firstOperand on screen */
     if (operator !== "") {
-      if (screen.value.length < 10) {
+      if (screen.value.length < 14) {
         secondOperand = secondOperand + btn;
         screen.value = secondOperand;
       } else {
@@ -58,13 +56,13 @@ numberButtonElements.forEach(element =>
         window.location.reload();
       }
     } else {
-    /* 
+      /* 
       display firstOperand on screen
     */
       if (screen.value === "0") {
         firstOperand = firstOperand + btn;
         screen.value = firstOperand;
-      } else if (screen.value.length < 10) {
+      } else if (screen.value.length < 14) {
         firstOperand = firstOperand + btn;
         screen.value = firstOperand;
       } else {
@@ -78,7 +76,7 @@ numberButtonElements.forEach(element =>
 /* displays at the most 10 digits on the screen if the length of result is more than 10 */
 function display(answer) {
   if (`${answer}`.length > 10) {
-    screen.value = `${answer}`.substr(0, 10);
+    screen.value = `${answer}`.substr(0, 15);
   } else {
     screen.value = answer;
   }
@@ -92,7 +90,7 @@ function compute(firstOperand, operator, secondOperand) {
       display(parseFloat(firstOperand) + parseFloat(secondOperand));
       break;
 
-    case "-":
+    case "−":
       display(parseFloat(firstOperand) - parseFloat(secondOperand));
       break;
 
@@ -109,3 +107,18 @@ function compute(firstOperand, operator, secondOperand) {
       break;
   }
 }
+
+document.getElementById("del").addEventListener("click", function() {
+  if (screen.value.length > 1) {
+    screen.value = screen.value.substring(0, `${screen.value}`.length - 1);
+    if (operator != "") {
+      secondOperand = screen.value;
+    } else {
+      firstOperand = screen.value;
+    }
+  } else {
+    screen.value = "0";
+    firstOperand = "";
+    secondOperand = "";
+  }
+});
