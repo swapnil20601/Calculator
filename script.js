@@ -10,19 +10,21 @@ let lengthOfOperand = 10;
 
 const numberButtonElements = document.querySelectorAll("button[data-number]");
 
-const operatorButtons = document.querySelectorAll("button[data-operator]");
+//const operatorButtons = document.querySelectorAll("button[data-operator]");
 
 const result = document.querySelectorAll("button[data-operator]");
 
 document.getElementById("decimal").addEventListener("click", function() {
-  if (!screen.value.includes(".")) {
-    if (operator !== "") {
-      secondOperand = secondOperand + ".";
-      screen.value = secondOperand;
-    } else {
-      firstOperand = firstOperand + ".";
-      screen.value = firstOperand;
-    }
+  if (operator == "" && firstOperand !== "" && !firstOperand.includes(".")) {
+    firstOperand = firstOperand + ".";
+    screen.value = firstOperand;
+  } else if (
+    operator !== "" &&
+    !secondOperand.includes(".") &&
+    secondOperand !== ""
+  ) {
+    secondOperand = secondOperand + ".";
+    screen.value = secondOperand;
   }
 });
 
@@ -47,10 +49,25 @@ document.getElementById("del").addEventListener("click", function() {
   }
 });
 
+// result.forEach(res =>
+//   res.addEventListener("click", function() {
+//     if (firstOperand !== "") {
+//       compute(firstOperand, operator, secondOperand);
+//     }
+//   })
+// );
+
 result.forEach(res =>
-  res.addEventListener("click", function() {
-    if (firstOperand !== "") {
+  res.addEventListener("click", function(e) {
+    if (firstOperand !== "" && secondOperand !== "") {
       compute(firstOperand, operator, secondOperand);
+    }
+    operator = e.target.textContent;
+
+    if (operator === "√" && firstOperand !== "") {
+      display(Math.sqrt(firstOperand));
+    } else if (operator === "1/x" && firstOperand !== "") {
+      display(1 / parseFloat(firstOperand));
     }
   })
 );
@@ -69,7 +86,7 @@ numberButtonElements.forEach(element =>
         screen.value = secondOperand;
       }
     } else {
-    /* 
+      /* 
       display firstOperand on screen
     */
       if (screen.value === "0") {
@@ -86,22 +103,22 @@ numberButtonElements.forEach(element =>
   })
 );
 
-/* stores operator in 'operator' variable when any the operator button is clicked */
-operatorButtons.forEach(op =>
-  op.addEventListener("click", function(e) {
-    if (firstOperand !== "") {
-      operator = e.target.textContent;
-      if (operator === "√") {
-        display(Math.sqrt(firstOperand));
-      } else if (operator === "1/x") {
-        display(1 / parseFloat(firstOperand));
-      }
-    } else {
-      alert("Please enter numeric value first");
-      document.location.reload();
-    }
-  })
-);
+// /* stores operator in 'operator' variable when any the operator button is clicked */
+// operatorButtons.forEach(op =>
+//   op.addEventListener("click", function(e) {
+//     if (firstOperand !== "") {
+//       operator = e.target.textContent;
+//       if (operator === "√") {
+//         display(Math.sqrt(firstOperand));
+//       } else if (operator === "1/x") {
+//         display(1 / parseFloat(firstOperand));
+//       }
+//     } else {
+//       alert("Please enter numeric value first");
+//       document.location.reload();
+//     }
+//   })
+// );
 
 function compute(firstOperand, operator, secondOperand) {
   switch (operator) {
@@ -139,5 +156,9 @@ function display(answer) {
 }
 
 document.getElementById("go").addEventListener("click", function() {
-  console.log(`first op is ${firstOperand} and second op is ${secondOperand}`);
+  console.log(
+    `first op is ${firstOperand} and second op is ${secondOperand} and operator is ${operator}`
+  );
 });
+
+// need to work on result function so that when = is pressed the same switch case is executed.
