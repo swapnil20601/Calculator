@@ -1,52 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
     <div class="calculator card">
-        <input type="text" id="screen" class="calculator-screen z-depth-1" value="0" disabled/>
-            <div class="calculator-keys">
-                <button type="button" class="all-clear function btn btn-danger btn-sm" id="clear">CE</button>
-                <button type="button" class="all-clear function btn btn-danger btn-sm" id="del">DEL</button>
-                <button type="button" data-operator="1/x" class="operator btn btn-info">1/x</button>
+        <input type="text" id="screen" class="calculator-screen z-depth-1" value="0" disabled />
+        <div class="calculator-keys">
+            <button type="button" class="all-clear function btn btn-danger btn-sm" id="clear">
+          CE
+        </button>
+            <button type="button" class="all-clear function btn btn-danger btn-sm" id="del">
+          DEL
+        </button>
+            <button type="button" data-operator="1/x" class="operator btn btn-info">
+          1/x
+        </button>
 
-                <button type="button" data-number="7" class="btn btn-light waves-effect">7</button>
-                <button type="button" data-number="8" class="btn btn-light waves-effect">8</button>
-                <button type="button" data-number="9" class="btn btn-light waves-effect">9</button>
+            <button type="button" data-number="7" class="btn btn-light waves-effect">
+          7
+        </button>
+            <button type="button" data-number="8" class="btn btn-light waves-effect">
+          8
+        </button>
+            <button type="button" data-number="9" class="btn btn-light waves-effect">
+          9
+        </button>
 
-                <button type="button" data-number="4" class="btn btn-light waves-effect">4</button>
-                <button type="button" data-number="5" class="btn btn-light waves-effect">5</button>
-                <button type="button" data-number="6" class="btn btn-light waves-effect">6</button>
+            <button type="button" data-number="4" class="btn btn-light waves-effect">
+          4
+        </button>
+            <button type="button" data-number="5" class="btn btn-light waves-effect">
+          5
+        </button>
+            <button type="button" data-number="6" class="btn btn-light waves-effect">
+          6
+        </button>
 
-                <button type="button" data-number="1" class="btn btn-light waves-effect">1</button>
-                <button type="button" data-number="2" class="btn btn-light waves-effect">2</button>
-                <button type="button" data-number="3" class="btn btn-light waves-effect">3</button>
+            <button type="button" data-number="1" class="btn btn-light waves-effect">
+          1
+        </button>
+            <button type="button" data-number="2" class="btn btn-light waves-effect">
+          2
+        </button>
+            <button type="button" data-number="3" class="btn btn-light waves-effect">
+          3
+        </button>
 
-                <button type="button" id="decimal" class="btn btn-light waves-effect">.</button>
-                <button type="button" data-number="0" class="btn btn-light waves-effect">0</button>
-                <button type="button" class="operator btn btn-info" data-operator="+">+</button>
+            <button type="button" id="decimal" class="btn btn-light waves-effect">
+          .
+        </button>
+            <button type="button" data-number="0" class="btn btn-light waves-effect">
+          0
+        </button>
+            <button type="button" class="operator btn btn-info" data-operator="+">
+          +
+        </button>
 
+            <button type="button" class="operator btn btn-info" data-operator="/">
+          ÷
+        </button>
+            <button type="button" data-operator="√" class="operator btn btn-info">
+          √
+        </button>
 
-                <button type="button" class="operator btn btn-info" data-operator="/">÷</button>
-                <button type="button" data-operator="√" class="operator btn btn-info">√</button>
+            <button type="button" class="operator btn btn-info" data-operator="*">
+          ×
+        </button>
+            <button type="button" class="operator btn btn-info" data-operator="%">
+          %
+        </button>
 
-             
-                <button type="button" class="operator btn btn-info" data-operator="*">×</button>
-                <button type="button" class="operator btn btn-info" data-operator="%">%</button>
-
-         
-                <button type="button" class="operator btn btn-info" data-operator="−">−</button>
-                <button type="button" class="operator btn btn-info" data-operator="=">=</button>
-
-            </div>
+            <button type="button" class="operator btn btn-info" data-operator="−">
+          −
+        </button>
+            <button type="button" class="operator btn btn-info" data-operator="=">
+          =
+        </button>
+        </div>
     </div>
-    <button id="go">click me</button>
     <script src="script.js"></script>
 </body>
+
 </html>
