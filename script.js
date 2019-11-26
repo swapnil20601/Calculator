@@ -6,14 +6,15 @@ let secondOperand = "";
 
 let operator = "";
 
-let lengthOfOperand = 10;
+let lengthOfOperand = 0;
 
 const numberButtonElements = document.querySelectorAll("button[data-number]");
 
-//const operatorButtons = document.querySelectorAll("button[data-operator]");
+const operatorButtonElements = document.querySelectorAll(
+  "button[data-operator]"
+);
 
-const result = document.querySelectorAll("button[data-operator]");
-
+/* function to insert decimal in operands */
 document.getElementById("decimal").addEventListener("click", function() {
   if (operator == "" && firstOperand !== "" && !firstOperand.includes(".")) {
     firstOperand = firstOperand + ".";
@@ -28,12 +29,13 @@ document.getElementById("decimal").addEventListener("click", function() {
   }
 });
 
-/* reset display to 0 when CE button is pressed */
+/* resets display to 0 when CE button is pressed */
 document.getElementById("clear").addEventListener("click", function() {
   screen.value = "0";
   window.location.reload();
 });
 
+/* function to delete individual digit. Basically works as backspace */
 document.getElementById("del").addEventListener("click", function() {
   if (screen.value.length > 1) {
     screen.value = screen.value.substring(0, `${screen.value}`.length - 1);
@@ -49,15 +51,8 @@ document.getElementById("del").addEventListener("click", function() {
   }
 });
 
-// result.forEach(res =>
-//   res.addEventListener("click", function() {
-//     if (firstOperand !== "") {
-//       compute(firstOperand, operator, secondOperand);
-//     }
-//   })
-// );
-
-result.forEach(res =>
+/* function to grab operator and call compute function to perform operation based on operator */
+operatorButtonElements.forEach(res =>
   res.addEventListener("click", function(e) {
     if (firstOperand !== "" && secondOperand !== "") {
       compute(firstOperand, operator, secondOperand);
@@ -72,54 +67,40 @@ result.forEach(res =>
   })
 );
 
+/* function to set firstOperand and secondOperand */
 numberButtonElements.forEach(element =>
   element.addEventListener("click", function(e) {
     const btn = e.target.textContent;
 
-    /*if operator is not empty, then clear screen and display secondOperand, ELSE, display firstOperand on screen */
+    /* set and display secondOperand on screen where maximum length of secondOperand is 10 
+    and if it contains decimal, then maximum length is 11
+    */
     if (operator !== "") {
-      if (screen.value.length < lengthOfOperand) {
+      lengthOfOperand = secondOperand.includes(".") ? 11 : 10;
+      secondOperand.includes(".")
+        ? (lengthOfOperand = 11)
+        : (lengthOfOperand = 10);
+      if (secondOperand.length < lengthOfOperand) {
         secondOperand = secondOperand + btn;
-        screen.value = secondOperand;
-      } else {
-        alert("Only 10 digits are allowed!");
         screen.value = secondOperand;
       }
     } else {
-      /* 
-      display firstOperand on screen
+      /* set and display firstOperand on screen with maximum length of 10 without decimal and
+      11 if it contains decimal
     */
+      lengthOfOperand = firstOperand.includes(".") ? 11 : 10;
       if (screen.value === "0") {
         firstOperand = firstOperand + btn;
         screen.value = firstOperand;
-      } else if (screen.value.length < lengthOfOperand) {
+      } else if (firstOperand.length < lengthOfOperand) {
         firstOperand = firstOperand + btn;
-        screen.value = firstOperand;
-      } else {
-        alert("Only 10 digits are allowed!");
         screen.value = firstOperand;
       }
     }
   })
 );
 
-// /* stores operator in 'operator' variable when any the operator button is clicked */
-// operatorButtons.forEach(op =>
-//   op.addEventListener("click", function(e) {
-//     if (firstOperand !== "") {
-//       operator = e.target.textContent;
-//       if (operator === "√") {
-//         display(Math.sqrt(firstOperand));
-//       } else if (operator === "1/x") {
-//         display(1 / parseFloat(firstOperand));
-//       }
-//     } else {
-//       alert("Please enter numeric value first");
-//       document.location.reload();
-//     }
-//   })
-// );
-
+/* function to perform operation on first and second operand based on operator selected */
 function compute(firstOperand, operator, secondOperand) {
   switch (operator) {
     case "+":
@@ -144,21 +125,13 @@ function compute(firstOperand, operator, secondOperand) {
   }
 }
 
-/* displays at the most 10 digits on the screen if the length of result is more than 10 */
+/* displays at the most 14 digits on the screen if the length of result is more than 10 */
 function display(answer) {
   if (`${answer}`.length > 10) {
-    screen.value = `${answer}`.substr(0, 15);
+    screen.value = `${answer}`.substr(0, 14);
   } else {
     screen.value = answer;
   }
   firstOperand = answer;
   secondOperand = "";
 }
-
-document.getElementById("go").addEventListener("click", function() {
-  console.log(
-    `first op is ${firstOperand} and second op is ${secondOperand} and operator is ${operator}`
-  );
-});
-
-// need to work on result function so that when = is pressed the same switch case is executed.
